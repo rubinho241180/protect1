@@ -1,0 +1,41 @@
+[22-Jan-2021 13:49:07 UTC] PHP Notice:  Undefined variable: service_sms in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 97
+[22-Jan-2021 13:50:44 UTC] PHP Warning:  include(services_sms.php): failed to open stream: No such file or directory in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 70
+[22-Jan-2021 13:50:44 UTC] PHP Warning:  include(): Failed opening 'services_sms.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 70
+[22-Jan-2021 13:50:44 UTC] PHP Notice:  Undefined variable: service_sms in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 97
+[22-Jan-2021 13:50:45 UTC] PHP Warning:  include(services_sms.php): failed to open stream: No such file or directory in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 70
+[22-Jan-2021 13:50:45 UTC] PHP Warning:  include(): Failed opening 'services_sms.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 70
+[22-Jan-2021 13:50:45 UTC] PHP Notice:  Undefined variable: service_sms in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 97
+[22-Jan-2021 13:50:47 UTC] PHP Warning:  include(services_sms.php): failed to open stream: No such file or directory in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 70
+[22-Jan-2021 13:50:47 UTC] PHP Warning:  include(): Failed opening 'services_sms.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 70
+[22-Jan-2021 13:50:47 UTC] PHP Notice:  Undefined variable: service_sms in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 97
+[22-Jan-2021 13:51:22 UTC] PHP Warning:  include(services_sms.php): failed to open stream: No such file or directory in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 70
+[22-Jan-2021 13:51:22 UTC] PHP Warning:  include(): Failed opening 'services_sms.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 70
+[22-Jan-2021 13:51:22 UTC] PHP Notice:  Undefined variable: service_sms in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 97
+[30-Jan-2021 20:50:37 UTC] PHP Notice:  Use of undefined constant pltDynamic - assumed 'pltDynamic' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_sms.php on line 43
+[10-Feb-2021 13:18:46 UTC] PHP Notice:  Undefined variable: service_whatsapp in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 95
+[10-Feb-2021 13:18:49 UTC] PHP Notice:  Undefined variable: service_whatsapp in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 95
+[17-Mar-2021 18:39:09 UTC] PHP Notice:  Undefined variable: service_call in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 123
+[17-Mar-2021 18:39:11 UTC] PHP Notice:  Undefined variable: service_call in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 123
+[17-Mar-2021 18:39:55 UTC] PHP Warning:  include(services_call.php): failed to open stream: No such file or directory in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 84
+[17-Mar-2021 18:39:55 UTC] PHP Warning:  include(): Failed opening 'services_call.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 84
+[17-Mar-2021 18:39:55 UTC] PHP Notice:  Undefined variable: service_call in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 124
+[17-Mar-2021 18:39:58 UTC] PHP Warning:  include(services_call.php): failed to open stream: No such file or directory in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 84
+[17-Mar-2021 18:39:58 UTC] PHP Warning:  include(): Failed opening 'services_call.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 84
+[17-Mar-2021 18:39:58 UTC] PHP Notice:  Undefined variable: service_call in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 124
+[17-Mar-2021 18:40:00 UTC] PHP Warning:  include(services_call.php): failed to open stream: No such file or directory in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 84
+[17-Mar-2021 18:40:00 UTC] PHP Warning:  include(): Failed opening 'services_call.php' for inclusion (include_path='.:/opt/alt/php56/usr/share/pear:/opt/alt/php56/usr/share/php') in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 84
+[17-Mar-2021 18:40:00 UTC] PHP Notice:  Undefined variable: service_call in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services5.php on line 124
+[18-Mar-2021 02:19:15 UTC] PHP Notice:  Use of undefined constant METHOD_API_LABEL - assumed 'METHOD_API_LABEL' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_sms.php on line 52
+[30-Mar-2021 16:45:07 UTC] PHP Notice:  Use of undefined constant ttChannel - assumed 'ttChannel' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_sms.php on line 147
+[30-Mar-2021 16:45:07 UTC] PHP Notice:  Use of undefined constant ttSession - assumed 'ttSession' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_sms.php on line 279
+[30-Mar-2021 16:46:54 UTC] PHP Notice:  Use of undefined constant ttChannel - assumed 'ttChannel' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_sms.php on line 147
+[30-Mar-2021 16:46:54 UTC] PHP Notice:  Use of undefined constant ttSession - assumed 'ttSession' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_sms.php on line 279
+[30-Mar-2021 17:22:15 UTC] PHP Notice:  Use of undefined constant ttChannel - assumed 'ttChannel' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_sms.php on line 147
+[30-Mar-2021 17:22:15 UTC] PHP Notice:  Use of undefined constant ttSession - assumed 'ttSession' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_sms.php on line 279
+[25-May-2021 13:10:42 UTC] PHP Parse error:  syntax error, unexpected ''hidden'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_email.php on line 168
+[29-May-2021 00:08:02 UTC] PHP Parse error:  syntax error, unexpected ''providers'' (T_CONSTANT_ENCAPSED_STRING), expecting ']' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_sms.php on line 41
+[11-Jun-2021 05:44:15 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_telegram.php on line 50
+[11-Jun-2021 05:45:03 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_telegram.php on line 50
+[11-Jun-2021 05:45:38 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_whatsapp.php on line 50
+[11-Jun-2021 05:45:59 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_mms.php on line 50
+[11-Jun-2021 05:46:26 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/rubinho241180/public_html/r2.rfidle.com/protect/services/services_email.php on line 52

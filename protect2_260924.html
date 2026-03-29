@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Dados JSON</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .subtable {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .toggle-btn {
+            cursor: pointer;
+            color: blue;
+        }
+        #loading {
+            text-align: center;
+            padding: 20px;
+        }
+        #error {
+            color: red;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Carregando dados...</div>
+    <div id="error" style="display: none;"></div>
+    <table id="mainTable" style="display: none;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Cidade</th>
+                <th>UF</th>
+                <th>Detalhes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dados serão inseridos aqui via JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        function separateDateAndTime(dateTimeString) {
+            if (!dateTimeString) return { date: 'N/A', time: 'N/A' };
+            const [date, time] = dateTimeString.split(' ');
+            return { date, time };
+        }
+
+        function createSubTable(serialItems) {
+            if (!serialItems || serialItems.length === 0) return 'Sem dados de serial';
+            
+            let table = '<table class="subtable">';
+            table += '<tr><th>Data</th><th>Hora</th><th>Vencimento</th><th>Valor</th><th>Instâncias</th><th>Comentário</th></tr>';
+            serialItems.forEach(item => {
+                const { date, time } = separateDateAndTime(item.date);
+                table += `<tr>
+                    <td>${date}</td>
+                    <td>${time}</td>
+                    <td>${item.venc}</td>
+                    <td>${item.valor}</td>
+                    <td>${item.instancias}</td>
+                    <td>${item.comment}</td>
+                </tr>`;
+            });
+            table += '</table>';
+            return table;
+        }
+
+        function populateTable(jsonData) {
+            const tbody = document.querySelector('#mainTable tbody');
+            tbody.innerHTML = ''; // Limpa o conteúdo existente
+
+            jsonData.forEach(item => {
+                const customer = item.customer;
+                const serialCount = item.serial ? item.serial.length : 0;
+                const { date, time } = separateDateAndTime(customer.date);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${customer.id}</td>
+                    <td>${date}</td>
+                    <td>${time}</td>
+                    <td>${customer.nome}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.fone}</td>
+                    <td>${customer.cidade}</td>
+                    <td>${customer.uf}</td>
+                    <td><span class="toggle-btn">Mostrar detalhes (${serialCount})</span></td>
+                `;
+                tbody.appendChild(row);
+
+                const detailRow = document.createElement('tr');
+                detailRow.style.display = 'none';
+                detailRow.innerHTML = `<td colspan="9">${createSubTable(item.serial)}</td>`;
+                tbody.appendChild(detailRow);
+
+                row.querySelector('.toggle-btn').addEventListener('click', function() {
+                    detailRow.style.display = detailRow.style.display === 'none' ? '' : 'none';
+                    this.textContent = detailRow.style.display === 'none' ? `Mostrar detalhes (${serialCount})` : `Ocultar detalhes (${serialCount})`;
+                });
+            });
+
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('mainTable').style.display = '';
+        }
+
+        function fetchData() {
+            const url = 'https://jit-n8n.ccvam7.easypanel.host/webhook/protect2';
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na rede ao tentar buscar os dados');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && data.data && Array.isArray(data.data)) {
+                        populateTable(data.data);
+                    } else {
+                        throw new Error('Formato de dados inesperado');
+                    }
+                })
+                .catch(error => {
+                    console.error('Houve um problema com a operação de busca:', error);
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('error').textContent = 'Erro ao carregar os dados. Por favor, tente novamente.';
+                    document.getElementById('error').style.display = 'block';
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+</body>
+</html>

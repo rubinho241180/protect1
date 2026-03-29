@@ -1,0 +1,13 @@
+[25-Jun-2017 14:58:55 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/Flash.php on line 48
+[25-Jun-2017 14:59:35 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/MethodOverride.php on line 50
+[25-Jun-2017 14:59:47 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/PrettyExceptions.php on line 46
+[18-Jul-2017 22:06:40 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/PrettyExceptions.php on line 46
+[18-Jul-2017 22:06:47 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/PrettyExceptions.php on line 46
+[18-Sep-2017 01:03:05 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/Flash.php on line 48
+[18-Sep-2017 01:03:26 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/MethodOverride.php on line 50
+[07-Oct-2018 13:13:51 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/Flash.php on line 48
+[07-Oct-2018 13:13:59 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/MethodOverride.php on line 50
+[07-Oct-2018 13:14:08 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/PrettyExceptions.php on line 46
+[08-Oct-2018 01:51:41 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/Flash.php on line 48
+[08-Oct-2018 01:51:49 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/MethodOverride.php on line 50
+[08-Oct-2018 01:51:58 UTC] PHP Fatal error:  Class 'Slim\Middleware' not found in /home/rubinho241180/public_html/r2.rfidle.com/protect/Slim/Middleware/PrettyExceptions.php on line 46

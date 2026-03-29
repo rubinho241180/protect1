@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		pre {
+			max-height: 160px;
+			overflow: scroll;
+		}
+	</style>
+<script src="assets/jquery-3.2.1.min.js"></script>
+<script>
+$(document).ready(function(){
+
+	function send(id, to, text) {
+
+		$('<h3 id="h5'+id+'">'+id+'</h3>').appendTo('#log');
+
+		$.ajax({
+		  	url: 'http://r2.rfidle.com/protect/sms.php',
+		  	type: 'GET',
+			data: {
+				  	id: id,
+				  	to: to,
+				  	text: text,
+				  	},
+		    //contentType: "application/json; charset=utf-8",
+		    dataType: "json",
+			cache: false,
+			success: function(data, textStats, XMLHttpRequest){ 
+				//alert('success!');
+				//console.log(data);
+				$('<pre><code>'+JSON.stringify(data, undefined, 2)+'</code></pre>').insertAfter('#h5'+data.id);
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+        		alert(xhr.status);
+        		alert(thrownError);
+      		}
+		});
+	}
+
+
+    $("button").click(function(){
+        
+    	$('#log').html('');
+
+    	send(1, '5581992353275', 'YES 1');
+    	//send(1, '5581998636365', 'YES 2');
+    	//send(2, '5581996066141', 'YES 3');
+    	//send(3, '5581982379937', 'YES 4');
+    	//send(5, '5581992553513', 'Teste #5');
+    	//send(2, '5581998636365', 'Teste #2');
+    	//send(3, '5581998636365', 'Teste #3');
+    	//send('5581998636365', 'Teste #4');
+    	//send('5581998636365', 'Teste #5');
+    	//send('5581998636365', 'Teste #6');
+
+    });
+});
+</script>
+</head>
+<body>
+
+<button>SEND</button>
+<p id="log"></p>
+
+</body>
+</html>
