@@ -10,7 +10,7 @@ function connect_pdo() {
 	$offset = "-03:00";
 
 
-	$db = new PDO("mysql:host=localhost;dbname=r2;charset=utf8mb4", "r2_read", "Xyz@master321321", /*"Xyz461300",*/
+	$db = new PDO("mysql:host=198.12.235.243;dbname=r2;charset=utf8mb4", "r2_read", "Xyz@master321321", /*"Xyz461300",*/
 
 			array(
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT,
