@@ -12,3 +12,4 @@ RUN echo '<Directory /var/www/html>\n\
 </Directory>' >> /etc/apache2/apache2.conf
 
 RUN echo 'date.timezone = "America/Recife"' > /usr/local/etc/php/conf.d/timezone.ini
+RUN echo 'memory_limit = 512M' >> /usr/local/etc/php/conf.d/timezone.ini
