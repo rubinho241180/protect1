@@ -8,4 +8,5 @@ COPY . /var/www/html/
 
 RUN echo '<Directory /var/www/html>\n\
     AllowOverride All\n\
+    DirectoryIndex index.php\n\
 </Directory>' >> /etc/apache2/apache2.conf
