@@ -11,7 +11,8 @@ function connect_pdo() {
     
     $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass,
         array(
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT,
+            //PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_PERSISTENT => false,
             PDO::ATTR_EMULATE_PREPARES => false,
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET time_zone = '$offset'",
