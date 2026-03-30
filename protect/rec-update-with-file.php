@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
 
 $rec_id    = $_POST["rec_id"];
 $timestamp = date('Y-m-d H:i:s');
@@ -15,20 +15,13 @@ $json = array(
     "post"        => $_POST,
     "is_old_file" => true,
     "file"        => (isset($recebimento["file"])) ? $recebimento["file"] : "",
-    "debug_files"  => $_FILES,
-    "debug_server" => array(
-        "content_type"   => $_SERVER["CONTENT_TYPE"],
-        "request_method" => $_SERVER["REQUEST_METHOD"],
-        "content_length" => $_SERVER["CONTENT_LENGTH"],
-    ),
 );
 
-// Configurações S3/MinIO via variáveis de ambiente
 $s3_endpoint = getenv('S3_ENDPOINT');
 $s3_bucket   = getenv('S3_BUCKET');
 $s3_access   = getenv('S3_ACCESS_KEY');
 $s3_secret   = getenv('S3_SECRET_KEY');
-$s3_region   = getenv('S3_REGION') ?: 'us-east-1';
+$s3_region   = getenv('S3_REGION');
 
 function s3_upload($endpoint, $bucket, $access, $secret, $region, $key, $file_path, $mime_type) {
     $date         = gmdate('Ymd\THis\Z');
@@ -84,22 +77,11 @@ function s3_upload($endpoint, $bucket, $access, $secret, $region, $key, $file_pa
         ],
     ]);
 
-    $response   = curl_exec($ch);
-    $http_code  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $curl_error = curl_error($ch);
+    $response  = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    error_log("S3 URL: {$url}");
-    error_log("S3 HTTP Code: {$http_code}");
-    error_log("S3 Response: {$response}");
-    error_log("S3 Curl Error: {$curl_error}");
-
-    return array(
-        "success"    => $http_code === 200,
-        "http_code"  => $http_code,
-        "response"   => $response,
-        "curl_error" => $curl_error,
-    );
+    return $http_code === 200;
 }
 
 /*
@@ -112,7 +94,7 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] === UPLOAD_ERR_OK && !emp
     $source    = $_FILES["file"]["tmp_name"];
     $mime_type = mime_content_type($source);
 
-    $result = s3_upload(
+    $uploaded = s3_upload(
         $s3_endpoint,
         $s3_bucket,
         $s3_access,
@@ -123,14 +105,7 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] === UPLOAD_ERR_OK && !emp
         $mime_type
     );
 
-    $json["debug_s3"] = $result;
-
-    if ($result["success"]) {
-        $oldfile = $recebimento["file"];
-        if ($oldfile) {
-            // opcional: implementar delete do S3 aqui
-        }
-
+    if ($uploaded) {
         $recebimento["file"] = $basename;
         $recebimento->update();
         $json["is_old_file"] = false;
