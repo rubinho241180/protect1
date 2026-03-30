@@ -21,7 +21,7 @@ $json = array(
 $minio_endpoint  = getenv('S3_ENDPOINT');  // ex: https://minio.seudominio.com
 $minio_bucket    = getenv('S3_BUCKET');    // ex: rechist
 $minio_access    = getenv('S3_ACCESS_KEY');
-$minio_secret    = getenv('S3_SECRET_KEY');
+$minio_secret    = getenv('S3_SECRET_KEY'); //
 $minio_region    = getenv('S3_REGION') ?: 'us-east-1';
 
 function minio_upload($endpoint, $bucket, $access, $secret, $region, $key, $file_path, $mime_type) {
