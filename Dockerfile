@@ -13,3 +13,5 @@ RUN echo '<Directory /var/www/html>\n\
 
 RUN echo 'date.timezone = "America/Recife"' > /usr/local/etc/php/conf.d/timezone.ini
 RUN echo 'memory_limit = 512M' >> /usr/local/etc/php/conf.d/timezone.ini
+RUN echo 'upload_max_filesize = 20M' >> /usr/local/etc/php/conf.d/timezone.ini
+RUN echo 'post_max_size = 20M' >> /usr/local/etc/php/conf.d/timezone.ini

@@ -15,6 +15,12 @@ $json = array(
     "post"        => $_POST,
     "is_old_file" => true,
     "file"        => (isset($recebimento["file"])) ? $recebimento["file"] : "",
+    "debug_files"  => $_FILES,
+    "debug_server" => array(
+        "content_type"   => $_SERVER["CONTENT_TYPE"],
+        "request_method" => $_SERVER["REQUEST_METHOD"],
+        "content_length" => $_SERVER["CONTENT_LENGTH"],
+    ),
 );
 
 // Configurações S3/MinIO via variáveis de ambiente
@@ -117,7 +123,7 @@ if (isset($_FILES["file"]) && $_FILES["file"]["error"] === UPLOAD_ERR_OK && !emp
         $mime_type
     );
 
-    $json["debug"] = $result;
+    $json["debug_s3"] = $result;
 
     if ($result["success"]) {
         $oldfile = $recebimento["file"];
