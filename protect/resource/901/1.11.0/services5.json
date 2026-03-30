@@ -1,0 +1,539 @@
+{
+"services": [
+{
+"id": 32,
+"name": "TELEGRAM",
+"theme": "#5682a3",
+"content": "mcrTextOrMedia",
+"rules": {
+"text": {
+"required": "mprOr",
+"max_size": 2000
+},
+"file": {
+"required": "mprOr",
+"max_size": 1024
+},
+"address": {
+"label": "Phone",
+"regex": "\\d{7,15}",
+"prefix": "{system.country.ddi}"
+}
+},
+"methods": [
+{
+"id": 2,
+"name": "WEB",
+"type": "mtBROWSER",
+"program": {
+"file": "web.exe",
+"show": 7
+},
+"providers": [
+{
+"id": 32,
+"name": "TELEGRAM",
+"label": "TELEGRAM",
+"uuid": "uidDetectable",
+"rotational": false,
+"patterns": {
+"interval1": 3,
+"interval2": 5,
+"small_limit": 10,
+"small_interval": 60,
+"daily_limit": 300,
+"max_attemps": 1,
+"max_targets_fail": 0
+},
+"parameters": {
+"url1": "https://web.telegram.org/",
+"res1": [
+"resource:jquery",
+"common_1",
+"status_1",
+"jobs_1",
+"telegram_1"
+]
+}
+}
+]
+}
+]
+},
+{
+"id": 31,
+"name": "WHATSAPP",
+"theme": "#009688",
+"content": "mcrTextAndMedia",
+"rules": {
+"text": {
+"required": "mprAndOr",
+"max_size": 2000
+},
+"file": {
+"required": "mprAndOr",
+"max_size": 1024
+},
+"address": {
+"label": "Phone",
+"regex": "\\d{7,15}",
+"prefix": "{system.country.ddi}"
+}
+},
+"methods": [
+{
+"id": 2,
+"name": "WEB",
+"type": "mtBROWSER",
+"program": {
+"file": "web.exe",
+"show": 7
+},
+"providers": [
+{
+"id": 31,
+"name": "WHATSAPP",
+"label": "WHATSAPP",
+"uuid": "uidDetectable",
+"rotational": false,
+"patterns": {
+"interval1": 1,
+"interval2": 5,
+"small_limit": 10,
+"small_interval": 60,
+"daily_limit": 300,
+"max_attemps": 1,
+"max_targets_fail": 0
+},
+"parameters": {
+"url1": "https://web.whatsapp.com/",
+"res1": [
+"00_boot_1"
+],
+"res2": [
+"wapp_1",
+"10_wapp_1",
+"20_device_1",
+"30_profile_1",
+"50_batch_1",
+"65_groups_1",
+"70_contacts_1",
+"80_status_1",
+"90_start_1"
+]
+}
+}
+]
+}
+]
+},
+{
+"id": 11,
+"name": "SMS",
+"theme": "#2d3f51",
+"content": "mcrText",
+"rules": {
+"text": {
+"required": "mprAnd",
+"max_size": 1024
+},
+"file": {
+"required": "mprUnsupported",
+"max_size": 1024
+},
+"address": {
+"label": "Phone",
+"regex": "\\d{7,15}",
+"prefix": "{system.country.ddi}"
+}
+},
+"methods": [
+{
+"id": 3,
+"name": "USB",
+"type": "mtPROGRAM",
+"program": {
+"file": "gsm.exe",
+"show": 0
+},
+"providers": []
+},
+{
+"id": 4,
+"name": "GoIP",
+"type": "mtPROGRAM",
+"program": {
+"file": "api.exe",
+"show": 0
+},
+"providers": [
+{
+"id": 11,
+"name": "GOIP",
+"label": "GoIP (DBL)",
+"uuid": "uidNone",
+"rotational": true,
+"patterns": {
+"interval1": 5,
+"interval2": 10,
+"small_limit": 10,
+"small_interval": 60,
+"daily_limit": 100,
+"max_attemps": 1,
+"max_targets_fail": 0
+},
+"parameters": {
+"setup": [
+"driver=GoIP",
+"method=GET",
+"url=http://www.mocky.io/v2/5e8b81c32f0000670088c363",
+"fields=l={line}&n={to}&m={text}",
+"credentials=u={user}&p={password}"
+],
+"fields": [
+"host=",
+"line=",
+"user=",
+"password="
+]
+}
+}
+]
+},
+{
+"id": 1,
+"name": "API",
+"type": "mtPROGRAM",
+"program": {
+"file": "api.exe",
+"show": 0
+},
+"providers": [
+{
+"id": 1,
+"name": "MrSENDER",
+"label": "SHORTCODE",
+"uuid": "uidNone",
+"rotational": false,
+"balance": true,
+"patterns": {
+"interval1": 1,
+"interval2": 2,
+"small_limit": 0,
+"small_interval": 0,
+"daily_limit": 0,
+"max_attemps": 1,
+"max_targets_fail": 0
+},
+"parameters": {
+"setup": [
+"driver=API",
+"method=GET",
+"url=http://3.16.156.61:9091/apisms/v1/tsm/sendsms/{api_token}/{text}/{to}",
+"fields=",
+"credentials=api_token={api_token}"
+],
+"balance": [
+"method=GET",
+"url=http://3.16.156.61:9091/apisms/v1/tsm/consulta_saldo/{api_token}"
+],
+"fields": [
+"api_token="
+]
+}
+}
+]
+},
+{
+"id": 2,
+"name": "WEB",
+"type": "mtBROWSER",
+"program": {
+"file": "web.exe",
+"show": 7
+},
+"providers": [
+{
+"id": 51,
+"name": "MESSAGES",
+"label": "ANDROID MESSAGES",
+"uuid": "uidNone",
+"rotational": false,
+"patterns": {
+"interval1": 1,
+"interval2": 5,
+"small_limit": 10,
+"small_interval": 60,
+"daily_limit": 600,
+"max_attemps": 1,
+"max_targets_fail": 0
+},
+"parameters": {
+"url1": "http://messages.android.com/",
+"res1": [
+"jq_1",
+"common_1",
+"status_1",
+"jobs_1",
+"messages_1",
+"messages_status_1"
+]
+}
+},
+{
+"id": 52,
+"name": "TEXTNOW",
+"label": "TEXTNOW (USA/CA)",
+"uuid": "uidDetectable",
+"rotational": false,
+"patterns": {
+"interval1": 1,
+"interval2": 5,
+"small_limit": 10,
+"small_interval": 60,
+"daily_limit": 600,
+"max_attemps": 1,
+"max_targets_fail": 0
+},
+"parameters": {
+"url1": "https://www.textnow.com/messaging",
+"res0": [
+"textnow_readyToInject_1"
+],
+"res2": [
+"jq_1",
+"common_1",
+"status_1",
+"jobs_1",
+"textnow_1",
+"textnow_status_1",
+"textnow_banners_1"
+]
+}
+}
+]
+}
+]
+},
+{
+"id": 12,
+"name": "MMS",
+"theme": "#3079ea",
+"content": "mcrTextAndMedia",
+"rules": {
+"text": {
+"required": "mprAndOr",
+"max_size": 512
+},
+"file": {
+"required": "mprAnd",
+"max_size": 512
+},
+"address": {
+"label": "Phone",
+"regex": "\\d{7,15}",
+"prefix": "{system.country.ddi}"
+}
+},
+"methods": [
+{
+"id": 2,
+"name": "WEB",
+"type": "mtBROWSER",
+"program": {
+"file": "web.exe",
+"show": 7
+},
+"providers": [
+{
+"id": 51,
+"name": "MESSAGES",
+"label": "ANDROID MESSAGES",
+"uuid": "uidNone",
+"rotational": false,
+"patterns": {
+"interval1": 1,
+"interval2": 5,
+"small_limit": 10,
+"small_interval": 60,
+"daily_limit": 600,
+"max_attemps": 1,
+"max_targets_fail": 0
+},
+"parameters": {
+"url1": "http://messages.android.com/",
+"res1": [
+"jq_1",
+"common_1",
+"status_1",
+"jobs_1",
+"messages_1",
+"messages_status_1"
+]
+}
+},
+{
+"id": 52,
+"name": "TEXTNOW",
+"label": "TEXTNOW (USA/CA)",
+"uuid": "uidNone",
+"rotational": true,
+"patterns": {
+"interval1": 1,
+"interval2": 5,
+"small_limit": 10,
+"small_interval": 60,
+"daily_limit": 600,
+"max_attemps": 1,
+"max_targets_fail": 0
+},
+"parameters": {
+"url1": "https://www.textnow.com/messaging",
+"res0": [
+"textnow_readyToInject_1"
+],
+"res2": [
+"jq_1",
+"common_1",
+"status_1",
+"jobs_1",
+"textnow_1",
+"textnow_status_7_1",
+"textnow_banners_1",
+"textnow_login_1"
+],
+"setup": [
+"email=Email",
+"password=Password"
+],
+"fields": [
+"email=",
+"password="
+]
+}
+}
+]
+}
+]
+},
+{
+"id": 21,
+"name": "EMAIL",
+"theme": "#725ad2",
+"content": "mcrTextAndMedia",
+"rules": {
+"text": {
+"required": "mprAndOr",
+"max_size": 10000
+},
+"file": {
+"required": "mprAndOr",
+"max_size": 512
+},
+"address": {
+"label": "Email",
+"regex": "(?<name>[\\w.]+)\\@(?<domain>\\w+\\.\\w+)(\\.\\w+)?"
+},
+"subject": {
+"max_length": 255
+}
+},
+"methods": [
+{
+"id": 5,
+"name": "SMTP",
+"type": "mtPROGRAM",
+"program": {
+"file": "smtp.exe",
+"show": 0
+},
+"providers": [
+{
+"id": 211,
+"name": "GMAIL",
+"label": "GMAIL",
+"uuid": "uidNone",
+"rotational": false,
+"balance": false,
+"patterns": {
+"interval1": 5,
+"interval2": 10,
+"small_limit": 5,
+"small_interval": 60,
+"daily_limit": 100,
+"max_attemps": 1,
+"max_targets_fail": 0
+},
+"parameters": {
+"setup": [
+"host=smtp.gmail.com",
+"port=587",
+"Use SSL=YES"
+],
+"fields": [
+"Email=",
+"Password="
+]
+}
+},
+{
+"id": 212,
+"name": "YAHOO",
+"label": "YAHOO",
+"uuid": "uidNone",
+"rotational": false,
+"balance": false,
+"patterns": {
+"interval1": 5,
+"interval2": 10,
+"small_limit": 5,
+"small_interval": 60,
+"daily_limit": 100,
+"max_attemps": 1,
+"max_targets_fail": 0
+},
+"parameters": {
+"setup": [
+"host=smtp.mail.yahoo.com",
+"port=465",
+"Use SSL=YES"
+],
+"fields": [
+"Email=",
+"Password="
+]
+}
+},
+{
+"id": 219,
+"name": "CUSTOMIZED",
+"label": "API/SMTP",
+"uuid": "uidNone",
+"rotational": false,
+"balance": false,
+"patterns": {
+"interval1": 5,
+"interval2": 10,
+"small_limit": 5,
+"small_interval": 60,
+"daily_limit": 100,
+"max_attemps": 1,
+"max_targets_fail": 0
+},
+"parameters": {
+"setup": [],
+"fields": [
+"Email=",
+"Password=",
+"Host=",
+"Port=",
+"Use SSL=NO|YES"
+]
+}
+}
+]
+}
+]
+}
+]
+}

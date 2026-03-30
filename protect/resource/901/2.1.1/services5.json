@@ -1,0 +1,740 @@
+{
+  "services": [
+    {
+      "id": 31,
+      "name": "WHATSAPP",
+      "theme": "#71B340",
+      "content": "mcrTextAndMedia",
+      "optOut": true,
+      "rules": {
+        "text": {
+          "required": "mprAndOr",
+          "max_size": 2000
+        },
+        "file": {
+          "required": "mprAndOr",
+          "max_size": 1024,
+          "filter": "Arquivos suportados|*.png;*.jpg;*.jpeg;*.pdf;*.wav;*.mp3",
+          "types": [
+            {
+              "type": "IMAGE",
+              "filter": "*.png;*.jpg;*.jpeg",
+              "required": "mprAndOr"
+            },
+            {
+              "type": "AUDIO",
+              "filter": "*.mp3",
+              "required": "mprOr"
+            },
+            {
+              "type": "FILE",
+              "filter": "*.pdf;*.doc;*.xls;*.xlsx",
+              "required": "mprOr"
+            }
+          ]
+        },
+        "address": {
+          "label": "Phone",
+          "treat": "[^\\d]",
+          "regex": "\\d{7,15}",
+          "prefix": "{system.country.ddi}"
+        }
+      },
+      "methods": [
+        {
+          "id": 2,
+          "name": "WEB",
+          "label": "WEB",
+          "type": "mtBROWSER",
+          "program": {
+            "file": "web.exe",
+            "show": 7
+          },
+          "providers": [
+            {
+              "id": 31,
+              "name": "WHATSAPP",
+              "label": "WHATSAPP",
+              "uuid": "uidDetectable",
+              "rotational": false,
+              "patterns": {
+                "interval1": 50,
+                "interval2": 60,
+                "small_limit": 10,
+                "small_interval": 60,
+                "daily_limit": 200,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "url1": "https://web.whatsapp.com/",
+                "res1": [
+                  "wapp_1",
+                  "10_wapp_1",
+                  "20_device_1",
+                  "30_profile_1",
+                  "50_batch_1",
+                  "60_messages_1",
+                  "65_groups_1",
+                  "70_contacts_1",
+                  "80_status_1",
+                  "90_start_1"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "name": "TELEGRAM",
+      "theme": "#5682a3",
+      "content": "mcrTextOrMedia",
+      "rules": {
+        "text": {
+          "required": "mprOr",
+          "max_size": 2000
+        },
+        "file": {
+          "required": "mprOr",
+          "max_size": 1024,
+          "filter": "Arquivos suportados|*.png;*.jpg;*.jpeg;*.pdf;*.wav;*.mp3",
+          "types": [
+            {
+              "type": "IMAGE",
+              "filter": "*.png;*.jpg;*.jpeg",
+              "rule": "mcrTextOrMedia"
+            },
+            {
+              "type": "AUDIO",
+              "filter": "*.wav;*.mp3",
+              "rule": "mcrTextOrMedia"
+            },
+            {
+              "type": "FILE",
+              "filter": "*.pdf;*.doc;*.xls;*.xlsx",
+              "rule": "mcrTextOrMedia"
+            }
+          ]
+        },
+        "address": {
+          "label": "Phone",
+          "treat": "[^\\d]",
+          "regex": "\\d{7,15}",
+          "prefix": "{system.country.ddi}"
+        }
+      },
+      "methods": [
+        {
+          "id": 2,
+          "name": "WEB",
+          "label": "WEB",
+          "type": "mtBROWSER",
+          "program": {
+            "file": "web.exe",
+            "show": 7
+          },
+          "providers": [
+            {
+              "id": 32,
+              "name": "TELEGRAM",
+              "label": "TELEGRAM",
+              "uuid": "uidDetectable",
+              "rotational": false,
+              "authType": "atManual",
+              "patterns": {
+                "interval1": 15,
+                "interval2": 30,
+                "small_limit": 10,
+                "small_interval": 60,
+                "daily_limit": 300,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "url1": "https://web.telegram.org/?legacy=1",
+                "res1": [
+                  "jq_1",
+                  "common_1",
+                  "status_1",
+                  "jobs_1",
+                  "telegram_1"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "SMS",
+      "theme": "#2d3f51",
+      "content": "mcrText",
+      "rules": {
+        "text": {
+          "required": "mprAnd",
+          "max_size": 1024
+        },
+        "file": {
+          "required": "mprUnsupported",
+          "max_size": 1024
+        },
+        "address": {
+          "label": "Phone",
+          "treat": "[^\\d]",
+          "regex": "\\d{7,15}",
+          "prefix": "{system.country.ddi}"
+        }
+      },
+      "methods": [
+        {
+          "id": 3,
+          "name": "USB",
+          "label": "USB",
+          "type": "mtPROGRAM",
+          "program": {
+            "file": "gsm.exe",
+            "show": 0
+          },
+          "providers": [],
+          "providersType": "ptDynamic"
+        },
+        {
+          "id": 1,
+          "name": "API",
+          "label": "API",
+          "type": "mtPROGRAM",
+          "program": {
+            "file": "api.exe",
+            "show": 0
+          },
+          "providers": [
+            {
+              "id": 61,
+              "name": "TWILIO",
+              "label": "TWILIO",
+              "uuid": "uidRegistrable",
+              "rotational": false,
+              "balance": false,
+              "patterns": {
+                "interval1": 1,
+                "interval2": 2,
+                "small_limit": 0,
+                "small_interval": 0,
+                "daily_limit": 0,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "setup": [
+                  "driver=API",
+                  "method=GET",
+                  "url=https://mex10.com/api/shortcodev2.aspx?token={api_token}&t=send&n={to}&m={text}",
+                  "fields=",
+                  "credentials=api_token={api_token}"
+                ],
+                "balance": [
+                  "method=GET",
+                  "url=http://3.16.156.61:9091/apisms/v1/tsm/consulta_saldo/{api_token}"
+                ],
+                "fields": [
+                  "api_token="
+                ]
+              },
+              "hidden": true
+            },
+            {
+              "id": 62,
+              "name": "ZENVIA",
+              "label": "ZENVIA",
+              "uuid": "uidRegistrable",
+              "channel": {
+                "label": "Zenvia Account Email"
+              },
+              "patterns": {
+                "interval1": 1,
+                "interval2": 2,
+                "small_limit": 0,
+                "small_interval": 0,
+                "daily_limit": 0,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "setup": [
+                  "driver=API",
+                  "method=GET",
+                  "url=http://www.mocky.io/v2/5e8b81c32f0000670088c363"
+                ],
+                "balance": [
+                  "method=GET",
+                  "url=http://3.16.156.61:9091/apisms/v1/tsm/consulta_saldo/{api_token}"
+                ],
+                "fields": [
+                  "api_token="
+                ]
+              },
+              "hidden": true
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "GoIP",
+          "label": "GoIP",
+          "type": "mtPROGRAM",
+          "program": {
+            "file": "goip.exe",
+            "show": 0
+          },
+          "providers": [
+            {
+              "id": 11,
+              "name": "DBL",
+              "label": "GoIP (DBL)",
+              "uuid": "uidRegistrable",
+              "rotational": true,
+              "patterns": {
+                "interval1": 5,
+                "interval2": 10,
+                "small_limit": 10,
+                "small_interval": 60,
+                "daily_limit": 100,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "setup": [
+                  "driver=GoIP",
+                  "method=GET",
+                  "url=http://{host}/default/en_US/send.html?l={line}&n={to}&m={text}&u={user}&p={password}"
+                ],
+                "status": [
+                  "url=http://{host}/default/en_US/send_status.xml?u={user}&p={password}"
+                ],
+                "fields": [
+                  "Host=",
+                  "Line=",
+                  "User=",
+                  "Password="
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "WEB",
+          "label": "WEB",
+          "type": "mtBROWSER",
+          "program": {
+            "file": "web.exe",
+            "show": 7
+          },
+          "providers": [
+            {
+              "id": 51,
+              "name": "MESSAGES",
+              "label": "ANDROID MESSAGES",
+              "uuid": "uidNone",
+              "rotational": false,
+              "patterns": {
+                "interval1": 10,
+                "interval2": 15,
+                "small_limit": 10,
+                "small_interval": 60,
+                "daily_limit": 600,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "url1": "http://messages.android.com/",
+                "res1": [
+                  "jq_1",
+                  "common_1",
+                  "status_1",
+                  "jobs_1",
+                  "messages_1",
+                  "messages_status_1"
+                ]
+              }
+            },
+            {
+              "id": 52,
+              "name": "TEXTNOW",
+              "label": "TEXTNOW (USA/CA)",
+              "uuid": "uidRegistrable",
+              "rotational": false,
+              "patterns": {
+                "interval1": 1,
+                "interval2": 5,
+                "small_limit": 10,
+                "small_interval": 60,
+                "daily_limit": 600,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "url1": "https://www.textnow.com/messaging",
+                "res0": [
+                  "textnow_readyToInject_1"
+                ],
+                "res2": [
+                  "jq_1",
+                  "common_1",
+                  "status_1",
+                  "jobs_1",
+                  "textnow_1",
+                  "textnow_status_1",
+                  "textnow_banners_1"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "MMS",
+      "theme": "#3079ea",
+      "content": "mcrTextAndMedia",
+      "rules": {
+        "text": {
+          "required": "mprAndOr",
+          "max_size": 512
+        },
+        "file": {
+          "required": "mprAnd",
+          "max_size": 512,
+          "filter": "Arquivos suportados|*.png;*.jpg;*.jpeg",
+          "types": [
+            {
+              "type": "IMAGE",
+              "filter": "*.png;*.jpg;*.jpeg",
+              "required": "mprAndOr"
+            },
+            {
+              "type": "AUDIO",
+              "filter": "*.mp3",
+              "required": "mprAndOr"
+            },
+            {
+              "type": "FILE",
+              "filter": "*.pdf;*.doc;*.xls;*.xlsx",
+              "required": "mprAndOr"
+            }
+          ]
+        },
+        "address": {
+          "label": "Phone",
+          "treat": "[^\\d]",
+          "regex": "\\d{7,15}",
+          "prefix": "{system.country.ddi}"
+        }
+      },
+      "methods": [
+        {
+          "id": 2,
+          "name": "WEB",
+          "label": "WEB",
+          "type": "mtBROWSER",
+          "program": {
+            "file": "web.exe",
+            "show": 7
+          },
+          "providers": [
+            {
+              "id": 51,
+              "name": "MESSAGES",
+              "label": "ANDROID MESSAGES",
+              "uuid": "uidNone",
+              "rotational": false,
+              "patterns": {
+                "interval1": 10,
+                "interval2": 15,
+                "small_limit": 10,
+                "small_interval": 60,
+                "daily_limit": 600,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "url1": "http://messages.android.com/",
+                "res1": [
+                  "jq_1",
+                  "common_1",
+                  "status_1",
+                  "jobs_1",
+                  "messages_1",
+                  "messages_status_1"
+                ]
+              }
+            },
+            {
+              "id": 52,
+              "name": "TEXTNOW",
+              "label": "TEXTNOW (USA/CA)",
+              "uuid": "uidNone",
+              "rotational": true,
+              "patterns": {
+                "interval1": 1,
+                "interval2": 5,
+                "small_limit": 10,
+                "small_interval": 60,
+                "daily_limit": 600,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "url1": "https://www.textnow.com/messaging",
+                "res0": [
+                  "textnow_readyToInject_1"
+                ],
+                "res2": [
+                  "jq_1",
+                  "common_1",
+                  "status_1",
+                  "jobs_1",
+                  "textnow_1",
+                  "textnow_status_7_1",
+                  "textnow_banners_1",
+                  "textnow_login_1"
+                ],
+                "setup": [
+                  "email=Email",
+                  "password=Password"
+                ],
+                "fields": [
+                  "email=",
+                  "password="
+                ]
+              },
+              "hidden": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "CALL",
+      "theme": "#EA4335",
+      "content": "mcrText",
+      "hidden": true,
+      "rules": {
+        "text": {
+          "required": "mprUnsupported",
+          "max_size": 1024
+        },
+        "file": {
+          "required": "mprAnd",
+          "max_size": 1024,
+          "filter": "Arquivos suportados|*.wav"
+        },
+        "address": {
+          "label": "Phone",
+          "treat": "[^\\d]",
+          "regex": "\\d{7,15}",
+          "prefix": "{system.country.ddi}"
+        }
+      },
+      "methods": [
+        {
+          "id": 2,
+          "name": "WEB",
+          "label": "WEB",
+          "type": "mtBROWSER",
+          "program": {
+            "file": "web.exe",
+            "show": 7
+          },
+          "providers": [
+            {
+              "id": 52,
+              "name": "TEXTNOW",
+              "label": "TEXTNOW",
+              "uuid": "uidRegistrable",
+              "authType": "atManual",
+              "rotational": false,
+              "patterns": {
+                "interval1": 1,
+                "interval2": 5,
+                "small_limit": 10,
+                "small_interval": 60,
+                "daily_limit": 600,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "url1": "https://www.textnow.com/messaging",
+                "res0": [
+                  "textnow_readyToInject_1"
+                ],
+                "res2": [
+                  "jq_1",
+                  "common_1",
+                  "status_1",
+                  "jobs_1",
+                  "textnow_1",
+                  "textnow_status_1",
+                  "textnow_banners_1"
+                ],
+                "fields": [
+                  "Email=",
+                  "Password="
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "name": "EMAIL",
+      "theme": "#725ad2",
+      "content": "mcrTextAndMedia",
+      "rules": {
+        "text": {
+          "required": "mprAndOr",
+          "max_size": 10000
+        },
+        "file": {
+          "required": "mprAndOr",
+          "max_size": 512,
+          "filter": "Arquivos suportados|*.png;*.jpg;*.jpeg;*.pdf",
+          "types": [
+            {
+              "type": "IMAGE",
+              "filter": "*.png;*.jpg;*.jpeg",
+              "required": "mprAndOr"
+            },
+            {
+              "type": "AUDIO",
+              "filter": "*.mp3",
+              "required": "mprAndOr"
+            },
+            {
+              "type": "FILE",
+              "filter": "*.pdf;*.doc;*.xls;*.xlsx",
+              "required": "mprAndOr"
+            }
+          ]
+        },
+        "address": {
+          "label": "Email",
+          "treat": "",
+          "regex": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]*[a-zA-Z0-9]+$"
+        },
+        "subject": {
+          "max_length": 255
+        }
+      },
+      "methods": [
+        {
+          "id": 5,
+          "name": "SMTP",
+          "label": "SMTP",
+          "type": "mtPROGRAM",
+          "program": {
+            "file": "smtp.exe",
+            "show": 0
+          },
+          "providers": [
+            {
+              "id": 211,
+              "name": "GMAIL",
+              "label": "GMAIL",
+              "uuid": "uidRegistrable",
+              "rotational": true,
+              "balance": false,
+              "THREAD": {
+                "TYPE": "ttStatic",
+                "dynamic": "tdChannel"
+              },
+              "patterns": {
+                "interval1": 30,
+                "interval2": 45,
+                "small_limit": 5,
+                "small_interval": 60,
+                "daily_limit": 100,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "setup": [
+                  "host=smtp.gmail.com",
+                  "port=587",
+                  "Use SSL=YES"
+                ],
+                "fields": [
+                  "Email=",
+                  "Password="
+                ]
+              }
+            },
+            {
+              "id": 212,
+              "name": "YAHOO",
+              "label": "YAHOO",
+              "uuid": "uidRegistrable",
+              "rotational": true,
+              "balance": false,
+              "patterns": {
+                "interval1": 5,
+                "interval2": 10,
+                "small_limit": 5,
+                "small_interval": 60,
+                "daily_limit": 100,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "setup": [
+                  "host=smtp.mail.yahoo.com",
+                  "port=465",
+                  "Use SSL=YES"
+                ],
+                "fields": [
+                  "Email=",
+                  "Password="
+                ]
+              },
+              "hidden": true
+            },
+            {
+              "id": 219,
+              "name": "CUSTOMIZED",
+              "label": "OUTROS",
+              "uuid": "uidRegistrable",
+              "rotational": false,
+              "balance": false,
+              "patterns": {
+                "interval1": 5,
+                "interval2": 10,
+                "small_limit": 5,
+                "small_interval": 60,
+                "daily_limit": 100,
+                "max_attemps": 1,
+                "max_targets_fail": 0
+              },
+              "parameters": {
+                "setup": [],
+                "fields": [
+                  "Email=",
+                  "Password=",
+                  "Host=",
+                  "Port=",
+                  "Use SSL=NO|YES"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

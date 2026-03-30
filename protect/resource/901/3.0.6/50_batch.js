@@ -1,0 +1,205 @@
+createChatOption = {createChat: true};
+
+WAPP.checkNumberStatus = function(targetId, done) {
+
+    WPP.contact.queryExists(targetId).then((result) => {
+        if (done !== undefined)
+            done({
+                id: !!result ? result.wid : null,
+                status: !!result ? 200 : 404
+            })
+    })
+}
+
+WAPP.sendText = function(targetId, message, done) {
+
+    WPP.chat.sendTextMessage(targetId, message, createChatOption);//.then((result) => {
+        if (done !== undefined)
+            done(null)
+    //})
+}
+
+WAPP.sendLinkPreview = function(targetId, url, message, done) {
+
+    WPP.chat.sendLinkPreview(targetId, url, message, createChatOption);//.then((result) => {
+        if (done !== undefined)
+            done(null)
+    //})
+}
+
+WAPP.sendFile = function(targetId, file64, options, done) {
+
+    Object.assign(options, createChatOption);
+
+    WPP.chat.sendFileMessage(targetId, file64, options);//.then((result) => {
+        if (done !== undefined)
+            done(null)
+    //})
+}
+
+WAPP.sendCard = function(targetId, file64, done) {
+
+    let base64 = file64.split(',')[1];
+    let vcardS = Base64.decode(base64);
+    let vcardO = vcardParse(vcardS); 
+    let vname  = vcardO.fn;
+    let vphone = vcardO.tel[0].value[0];
+
+    console.log('VNAME: ' +vname);
+
+    let vcardFields = {id: vphone + '@c.us', name: vname};
+
+    //Object.assign(vcardFields, createChatOption);
+
+    WPP.chat.sendVCardContactMessage(targetId, vcardFields, createChatOption);//.then((result) => {
+        if (done !== undefined)
+            done(null)
+    //})
+}
+
+
+
+
+// https://github.com/wppconnect-team/wa-js
+// https://github.com/wppconnect-team/wa-js/releases
+// https://github.com/wppconnect-team/wa-js/releases/download/nightly/wppconnect-wa.js
+
+function releaseChats()
+{
+    let msgLength = Store.Chat._models.length;
+
+    if (msgLength > 1) 
+    {
+        Store.Chat._models[0].delete();               
+    }    
+}
+
+function releaseMsgs()
+{
+    let msgLength = Store.Msg._models.length;
+
+    if (msgLength > 25) 
+    {
+        Store.Msg._models[msgLength-25].delete();               
+    }    
+}
+
+
+
+window.WAPP.sendBatch = function(send, done)
+{ 
+    console.log('sendBatch starting...');
+
+    targetIdWithAt = 
+        send.batch.target.address + '@c.us';
+
+    WAPP.checkNumberStatus(targetIdWithAt, function(contact)
+    { 
+        send = Object.assign(
+            send,
+            {
+                href: '/send',
+                jid: contact.id,
+                status: contact.status
+            }
+        );
+
+        if (contact.status == 200)
+        {
+            
+            send.batch.messages.forEach((msg, msgIndex) => {
+
+                console.log('delay to send: ' + (msgIndex * 1000));
+
+                //setTimeout(() => {
+
+                    if ((msg.text) && (msg.files.length == 0)) {
+                        console.log('TEXT,,,');
+
+                        //var messg = Base64.decode(msg.text.body);       
+                        var messg = decodeURIComponent(msg.text.body);       
+
+                        var regex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/gi;
+                        var links = messg.match(regex);
+
+                        //setTimeout(function() {
+                        //if (links.length > 0)
+                        //    WAPP.sendLinkPreview(send.jid, links[0], messg); else 
+                            WAPP.sendText(send.jid, messg); 
+                        //}, aindex * 1000);
+                    }
+
+                    if ((msg.text) && (msg.files.length >= 1)) {
+                        
+                        file = msg.files[0];
+
+                        //console.log('FILE,,,');
+                        if (file.fileType == 'IMAGE') 
+                            fileCaption = decodeURIComponent(file.caption); else
+                        if (file.fileType == 'VIDEO') 
+                            fileCaption = decodeURIComponent(file.caption); else
+                            fileCaption = file.fileName;    
+                            
+                        fileName    = file.fileName; 
+                        fileCaption = decodeURIComponent(file.caption);   
+                        fileBase64  = file.fileData;    
+
+                        let fileOptions = {
+                            type: 'auto-detect', 
+                            isPtt: true, 
+                            filename: fileName, 
+                            caption: fileCaption
+                        };
+
+                        if (file.fileType == 'AUDIO')
+                            Object.assign(fileOptions, {isPtt: true, type: 'audio'});
+
+
+                        if (file.fileType == 'VCARD') 
+                            WAPP.sendCard(send.jid, fileBase64); else
+                            WAPP.sendFile(send.jid, fileBase64, fileOptions);
+
+                        fileName    = '';
+                        fileCaption = '';
+                        fileBase64  = '';
+                    }
+
+                    
+                //}, msgIndex * 250)
+                console.log('SENTTTTTTT: ' + (msgIndex * 1000));
+            });
+        
+            console.log('sent all');
+            releaseMsgs();
+        }
+
+        send.batch.messages.forEach((msg, msgIndex) => {
+            msg.text.body = 'cleaned!';
+            
+            if (msg.files.length > 0) {
+
+                msg.files[0].filePath = 'cleaned!';  
+                msg.files[0].fileData = 'cleaned!';  
+                msg.files[0].caption  = 'cleaned!';  
+            }
+        })
+
+
+        //setTimeout(function() {
+            try {
+              
+                console.log(JSON.stringify( send ));
+                console.log('console END!! Msg: ' + Store.Msg._models.length);
+
+            } catch (e) {
+                console.log('OPAAAAAAa: ' + e.message);
+              // Unexpected token n in JSON at position 2
+            }
+
+            //delete send;
+
+        //}, 100);
+    });
+}
+
+console.log('---=> 50_batch.js');
