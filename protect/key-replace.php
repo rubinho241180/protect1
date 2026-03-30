@@ -74,6 +74,7 @@ require_once "rijndael.php";
 
 $enc = AES_Rijndael_Encrypt(strtoupper($key), $mac_id."-".$app_id.":1", $mac_id."-".$app_id.":2");
 $skey = strtoupper(bin2hex($enc));
+$skey = substr($skey, 0, 32);
 
 
 
