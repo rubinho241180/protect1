@@ -129,10 +129,11 @@ if ($qry->rowCount() == 0) {
 
 	//----$json["ins_sql"] = $sql;
 	if (!$qry) {
-		array_push(
-			$json["errors"],
-			$pdo->errorInfo()
-		);
+    $error = $pdo->errorInfo();
+    array_push(
+        $json["errors"],
+        array("msg" => "Erro ao inserir instalação: " . $error[2])
+    );
 	} else {
 
 		$ins_id = $pdo->lastInsertId();
