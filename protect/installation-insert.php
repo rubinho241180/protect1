@@ -105,11 +105,13 @@ $json["ins_length"] = $qry->rowCount();
 if ($qry->rowCount() == 0) {
 
 	//get deploy
-	$deploy =
-		$ndb->deploy()->where("ip = ?", $ip)->order("id DESC")->limit(1)->fetch();
+	// $deploy =
+	// 	$ndb->deploy()->where("ip = ?", $ip)->order("id DESC")->limit(1)->fetch();
 
-	$deploy_id =
-		(!!$deploy)	? $deploy["id"] : NULL;
+	// $deploy_id =
+	// 	(!!$deploy)	? $deploy["id"] : NULL;
+
+	$deploy_id = NULL;
 
 	$sql = "insert into ins set deploy_id = :deploy_id, cus_id = :cus_id, mac_id = :mac_id, mac_name = :mac_name, appl_id = :app_id, distribuition_id = :dist_id, timestamp = :timestamp, ip = :ip, data = :data";
 	$sta = $pdo->prepare($sql);
