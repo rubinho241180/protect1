@@ -126,8 +126,8 @@ function addSMS($to, $text) {
 
 
     if (!$qry) {
-        var_dump($pdo->errorInfo());
-    } 
+        error_log("addSMS error: " . print_r($pdo->errorInfo(), true));
+    }
 
 }
 
