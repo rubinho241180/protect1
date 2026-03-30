@@ -124,7 +124,8 @@ if ($qry->rowCount() == 0) {
 					"app_id" => $app_id,
 					"dist_id" => $distribuition_id,
 					"timestamp" => $timestamp,
-					"ip" => client_ip(),
+					//"ip" => client_ip(),
+					"ip" => substr(client_ip(), 0, 45),
 					"data" => "d:".$device_data.":d",
 				)
 		   );
