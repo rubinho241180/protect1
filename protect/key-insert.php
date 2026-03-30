@@ -131,6 +131,7 @@ $ilimit = hexdec(substr($pkey, 14, 2));
 
 $enc = AES_Rijndael_Encrypt($pkey, $inskey.":1", $inskey.":2");
 $skey = strtoupper(bin2hex($enc));
+$skey = substr($skey, 0, 32);
 
 require_once "functions.php";
 
