@@ -3,8 +3,8 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-$rec_id     = $_POST["rec_id"];
-$timestamp  = date('Y-m-d H:i:s');
+$rec_id    = $_POST["rec_id"];
+$timestamp = date('Y-m-d H:i:s');
 
 require_once "db.php";
 
@@ -17,18 +17,18 @@ $json = array(
     "file"        => (isset($recebimento["file"])) ? $recebimento["file"] : "",
 );
 
-// Configurações MinIO via variáveis de ambiente
-$minio_endpoint  = getenv('S3_ENDPOINT');  // ex: https://minio.seudominio.com
-$minio_bucket    = getenv('S3_BUCKET');    // ex: rechist
-$minio_access    = getenv('S3_ACCESS_KEY');
-$minio_secret    = getenv('S3_SECRET_KEY'); //
-$minio_region    = getenv('S3_REGION') ?: 'us-east-1';
+// Configurações S3/MinIO via variáveis de ambiente
+$s3_endpoint = getenv('S3_ENDPOINT');
+$s3_bucket   = getenv('S3_BUCKET');
+$s3_access   = getenv('S3_ACCESS_KEY');
+$s3_secret   = getenv('S3_SECRET_KEY');
+$s3_region   = getenv('S3_REGION') ?: 'us-east-1';
 
-function minio_upload($endpoint, $bucket, $access, $secret, $region, $key, $file_path, $mime_type) {
-    $date        = gmdate('Ymd\THis\Z');
-    $date_short  = gmdate('Ymd');
-    $host        = parse_url($endpoint, PHP_URL_HOST);
-    $content     = file_get_contents($file_path);
+function s3_upload($endpoint, $bucket, $access, $secret, $region, $key, $file_path, $mime_type) {
+    $date         = gmdate('Ymd\THis\Z');
+    $date_short   = gmdate('Ymd');
+    $host         = parse_url($endpoint, PHP_URL_HOST);
+    $content      = file_get_contents($file_path);
     $content_hash = hash('sha256', $content);
 
     $canonical_request = implode("\n", [
@@ -60,11 +60,9 @@ function minio_upload($endpoint, $bucket, $access, $secret, $region, $key, $file
         true),
     true);
 
-    $signature = hash_hmac('sha256', $string_to_sign, $signing_key);
-
+    $signature     = hash_hmac('sha256', $string_to_sign, $signing_key);
     $authorization = "AWS4-HMAC-SHA256 Credential={$access}/{$credential_scope}, SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature={$signature}";
-
-    $url = "{$endpoint}/{$bucket}/{$key}";
+    $url           = "{$endpoint}/{$bucket}/{$key}";
 
     $ch = curl_init($url);
     curl_setopt_array($ch, [
@@ -80,7 +78,7 @@ function minio_upload($endpoint, $bucket, $access, $secret, $region, $key, $file
         ],
     ]);
 
-    $response = curl_exec($ch);
+    $response  = curl_exec($ch);
     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
@@ -90,39 +88,37 @@ function minio_upload($endpoint, $bucket, $access, $secret, $region, $key, $file
 /*
 **  FILE
 */
-if (isset($_FILES["file"])) {
-    $filename   = $rec_id . "_" . uniqid();
-    $extension  = strtolower(pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION));
-    $basename   = $filename . "." . $extension;
-    $source     = $_FILES["file"]["tmp_name"];
-    $mime_type  = mime_content_type($source);
-    $s3_key     = "rechist/{$basename}";
+if (isset($_FILES["file"]) && $_FILES["file"]["error"] === UPLOAD_ERR_OK && !empty($_FILES["file"]["tmp_name"])) {
+    $filename  = $rec_id . "_" . uniqid();
+    $extension = strtolower(pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION));
+    $basename  = $filename . "." . $extension;
+    $source    = $_FILES["file"]["tmp_name"];
+    $mime_type = mime_content_type($source);
 
-    $uploaded = minio_upload(
-        $minio_endpoint,
-        $minio_bucket,
-        $minio_access,
-        $minio_secret,
-        $minio_region,
+    $uploaded = s3_upload(
+        $s3_endpoint,
+        $s3_bucket,
+        $s3_access,
+        $s3_secret,
+        $s3_region,
         $basename,
         $source,
         $mime_type
     );
 
     if ($uploaded) {
-        // Remove arquivo antigo do MinIO se existir
         $oldfile = $recebimento["file"];
         if ($oldfile) {
-            // opcional: implementar delete do MinIO aqui
+            // opcional: implementar delete do S3 aqui
         }
 
         $recebimento["file"] = $basename;
         $recebimento->update();
         $json["is_old_file"] = false;
         $json["file"]        = $basename;
-        $json["url"]         = "{$minio_endpoint}/{$minio_bucket}/{$basename}";
+        $json["url"]         = "{$s3_endpoint}/{$s3_bucket}/{$basename}";
     } else {
-        array_push($json["errors"], "Falha no upload para o MinIO.");
+        array_push($json["errors"], "Falha no upload para o S3.");
     }
 }
 
