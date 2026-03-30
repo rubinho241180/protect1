@@ -51,7 +51,7 @@ function connect_pdo2() {
 }
 
 
-require_once "../r2.rfidle.com/protect/NotORM.php";
+require_once "protect/NotORM.php";
 
 $pdo = connect_pdo2();
 $ndb2 = new NotORM($pdo);
