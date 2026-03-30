@@ -11,7 +11,7 @@ function connect_pdo2() {
 
 	$host = getenv('DB_HOST');
     $dbname = getenv('DB_NAME');
-    $user = getenv('DB_USER');
+    $user = 'root';//getenv('DB_USER');
     $pass = getenv('DB_PASS');
 
 
