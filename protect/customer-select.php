@@ -187,18 +187,26 @@ try {
 
 }
 
-//catch exception
+
 catch(Exception $e) {
+    try {
+        $logg = $ndb->log()->insert(
+            array(
+                "text" => "cus-sel-error {$ip}:<hr>".$e->getMessage(),
+            )
+        );
+        addSMS(TELEGRAM_RUBINHO, "cus-sel-ERROR:\nhttp://r2.rfidle.com/protect/log/$logg[id]");
+    } catch(Exception $e2) {
+        error_log("cus-sel catch error: " . $e2->getMessage());
+    }
 
-	$logg = 
-		$ndb->log()->insert(
-			array(
-				"text" => "cus-sel-error {$ip}:<hr>".$e->getMessage(),
-			)
-		);
+    array_push(
+        $json["errors"],
+        array("msg" => $e->getMessage())
+    );
 
-	addSMS(TELEGRAM_RUBINHO, "cus-sel-ERROR:\nhttp://r2.rfidle.com/protect/log/$logg[id]");
-	exit;  
+    echo json_encode($json, JSON_PRETTY_PRINT);
+    exit;
 }
 
 
