@@ -102,6 +102,7 @@ if (!!$dist)
     $downBase = "//13.58.145.26/protect/download/";
     $downBase = "//54.160.66.249/protect/download/";
     $downBase = "//r2.rfidle.com/protect/dl/";
+    $downBase = "//dl.rfidle.com/download/";
 
     //$downBase = "//truesistemas.com/protect/download/";
     //$downBase = "//rfidle.com/download/";
