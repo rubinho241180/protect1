@@ -717,7 +717,7 @@ window.WAPP.sendBatch = function(send, done)
 
                             if (file.fileType == 'AUDIO')
 
-                                Object.assign(fileOptions, {isPtt: false, type: 'audio'});
+                                Object.assign(fileOptions, {isPtt: true, type: 'audio'});
 
 
 

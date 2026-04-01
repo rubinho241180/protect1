@@ -2,27 +2,129 @@ createChatOption = {createChat: true};
 
 
 
-WAPP.checkNumberStatus = function(targetId, done) {
+// WAPP.checkNumberStatus = function(targetId, done) {
 
 
 
-    WPP.contact.queryExists(targetId).then((result) => {
+//     WPP.contact.queryExists(targetId).then((result) => {
 
-        if (done !== undefined)
+//         if (done !== undefined)
 
-            done({
+//             done({
 
-                // id: !!result ? result.wid : null,
-                id: result ? (result.lid ? result.lid : result.wid) : null,
+//                 // id: !!result ? result.wid : null,
+//                 id: result ? (result.lid ? result.lid : result.wid) : null,
                 
-                status: !!result ? 200 : 404
+//                 status: !!result ? 200 : 404
 
-            })
+//             })
 
-    })
+//     })
 
-}
+// }
 
+
+
+// WAPP.checkNumberStatus = function(targetId, done) {
+
+//     try {
+    
+//         console.log('queryExists #1');
+//         WPP.contact.queryExists(targetId).then((result) => {
+
+//             if (done !== undefined)
+
+//                 done({
+
+//                     // id: !!result ? result.wid : null,
+//                     id: result ? (result.lid ? result.lid : result.wid) : null,
+                    
+//                     status: !!result ? 200 : 404
+
+//                 })
+
+//         })
+
+//     } catch(error) {
+
+
+//         console.log('queryExists #2');
+//         setTimeout(function() {
+//             console.log('queryExists.timeout #2');
+
+//             WPP.contact.queryExists(targetId).then((result) => {
+
+//                 if (done !== undefined)
+
+//                     done({
+
+//                         // id: !!result ? result.wid : null,
+//                         id: result ? (result.lid ? result.lid : result.wid) : null,
+                        
+//                         status: !!result ? 200 : 404
+
+//                     })
+
+//             })
+
+//         }, 5000);
+
+//     }
+
+
+// }
+
+WAPP.checkNumberStatus = function (targetId, done) {
+
+    console.log('queryExists #1');
+
+    WPP.contact.queryExists(targetId)
+        .then((result) => {
+
+            if (done !== undefined)
+                done({
+                    id: result ? (result.lid ? result.lid : result.wid) : null,
+                    status: result ? 200 : 404
+                });
+
+        })
+        .catch((error) => {
+
+            console.log('Erro na primeira tentativa:', error);
+            console.log('queryExists #2 (retry em 5s)');
+
+            setTimeout(() => {
+
+                console.log('queryExists.timeout #2');
+
+                WPP.contact.queryExists(targetId)
+                    .then((result) => {
+
+                        if (done !== undefined)
+                            done({
+                                id: result ? (result.lid ? result.lid : result.wid) : null,
+                                status: result ? 200 : 404
+                            });
+
+                    })
+                    .catch((error2) => {
+
+                        console.log('Erro na segunda tentativa:', error2);
+
+                        if (done !== undefined)
+                            done({
+                                id: null,
+                                status: 500,
+                                error: error2?.message || 'Erro após retry'
+                            });
+
+                    });
+
+            }, 5000);
+
+        });
+
+};
 
 
 // WAPP.sendText = function(targetId, message, done) {
