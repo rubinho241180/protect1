@@ -392,8 +392,8 @@
                           "{\"messaging_product\": \"whatsapp\",\"to\": \"{{ target.address }}\",\"type\": \"template\",\"template\": {\"name\": \"{{# messages }}{{ text.body }}{{\/ messages }}\",\"language\": {\"code\": \"en_US\"}{{# target.values }},\"components\": [{\"type\": \"body\",\"parameters\": [{{# target.values }}{\"type\": \"text\",\"text\": \"{{ value }}\"}{{^ -last }},{{\/ -last }}{{\/ target.values }}]}]{{\/ target.values }}}}"
                         ],
                           [
-                          "s:200",
-                          "{{statusCode}} = 200;{{statusText}}"
+                          "s:400",
+                          "{{statusCode}} = 400;{{data.error.error_data.details}}"
                         ]
                       ]
                     ]
