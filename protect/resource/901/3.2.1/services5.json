@@ -393,7 +393,7 @@
                         ],
                           [
                           "s:500",
-                          "{{statusCode}} != 200;{{data.error.error_data.details}}"
+                          "{{statusCode}} <> 200;{{data.error.error_data.details}}"
                         ]
                       ]
                     ]
