@@ -389,7 +389,7 @@
                         ],
                           [
                           "i:body",
-                          "{\"messaging_product\": \"whatsapp\",\"to\": \"{{ batch.target.address }}\",\"type\": \"template\",\"template\": {\"name\": \"{{ batch.messages.0.text.body }}\",\"language\": {\"code\": \"en_US\"}{{#batch.target.values}},\"components\": [{\"type\": \"body\",\"parameters\": [{{#batch.target.values}}{\"type\": \"text\",\"text\": \"{{ value }}\"}{{^-last}},{{\/-last}}{{\/batch.target.values}}]}]{{\/batch.target.values}}}}"
+                          "{\"messaging_product\": \"whatsapp\",\"to\": \"{{ target.address }}\",\"type\": \"template\",\"template\": {\"name\": \"hello_world\",\"language\": {\"code\": \"en_US\"},\"components\": [{\"type\": \"body\",\"parameters\": [{{#target.params}}{\"type\": \"text\",\"text\": \"{{ 1 }}\"}{{^ -last }},{{\/ -last }}{{\/target.params}}]}]}}"
                         ]
                       ]
                     ]
