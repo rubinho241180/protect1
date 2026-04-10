@@ -1,4 +1,4 @@
-SEL_DISCONNECTED = 'body';
+SEL_DISCONNECTED = 'mw-welcome-page-container';
 SEL_CONNECTED    = '.start-chat';
 
 //device
