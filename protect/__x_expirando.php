@@ -73,7 +73,7 @@ foreach ($serials as $seri) {
             && ($seri['dlimit'] != NULL) 
             && ($daysDiff > 30) 
             //&& ($daysLeft > 1) 
-            && ($seri['seri_id'] == NULL) 
+            //&& ($seri['seri_id'] == NULL) 
             //&& ($seri->ins['appl_id'] == $app_id)
         ) {
     
